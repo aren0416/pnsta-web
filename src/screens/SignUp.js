@@ -22,6 +22,7 @@ export const SignUp = () => {
         <Input type="text" placeholder="성" />
         <Input type="text" placeholder="이름" />
         <Input type="text" placeholder="아이디" />
+        <Input type="text" placeholder="이메일" />
         <Input type="password" placeholder="비밀번호" />
         <Button type="submit" value="회원가입" />
       </FormBox>

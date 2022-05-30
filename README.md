@@ -1,6 +1,6 @@
 # 해야할 일
 
-- [ ] router 설정
+- [x] router 설정
 
 - [ ] home
 - [ ] login

@@ -1,23 +1,11 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { AuthLayout } from "../components/auth/AuthLayout";
+import { BottomBox } from "../components/auth/BottomBox";
+import { Button } from "../components/auth/Button";
+import { FormBox } from "../components/auth/FormBox";
+import { Input } from "../components/auth/Input";
 import { PageTitle } from "../components/Pagetitle";
 import { routes } from "../routes";
-
-const Wrap = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.div`
-  width: 300px;
-  border: 1px solid #dbdbdb;
-  padding: 25px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
 
 const Title = styled.h2`
   font-size: 30px;
@@ -25,40 +13,21 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
-const FormBox = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 5px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  border: 1px solid #dbdbdb;
-`;
-
-const Button = styled.button`
-  padding: 10px 0;
-`;
-
 export const Login = () => {
   return (
-    <>
+    <AuthLayout>
       <PageTitle title="Login" />
-      <Wrap>
-        <Container>
-          <Title>Login</Title>
-          <FormBox>
-            <Input type="text" placeholder="아이디" />
-            <Input type="password" placeholder="비밀번호" />
-            <Button>
-              <Link to={routes.home}>Login</Link>
-            </Button>
-          </FormBox>
-        </Container>
-      </Wrap>
-    </>
+      <Title>Login</Title>
+      <FormBox>
+        <Input type="text" placeholder="아이디" />
+        <Input type="password" placeholder="비밀번호" />
+        <Button type="submit" value="로그인" />
+      </FormBox>
+      <BottomBox
+        cta="아이디가 없으세요?"
+        link={routes.signUp}
+        linkText="회원가입"
+      />
+    </AuthLayout>
   );
 };

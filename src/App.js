@@ -1,4 +1,5 @@
 import { useReactiveVar } from "@apollo/client";
+import { HelmetProvider } from "react-helmet-async";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { isLoggedInVar } from "./apollo";
 import { routes } from "./routes";
@@ -11,13 +12,18 @@ function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   return (
-    <Router>
-      <Routes>
-        <Route path={routes.home} element={isLoggedIn ? <Home /> : <Login />} />
-        <Route path={routes.signUp} element={<SignUp />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <Routes>
+          <Route
+            path={routes.home}
+            element={isLoggedIn ? <Home /> : <Login />}
+          />
+          <Route path={routes.signUp} element={<SignUp />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </HelmetProvider>
   );
 }
 

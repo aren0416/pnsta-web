@@ -2,6 +2,7 @@
 
 - [x] router 설정
 
+- [x] pageTitle
 - [ ] home
 - [ ] login
 - [ ] signUp

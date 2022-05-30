@@ -7,12 +7,14 @@ import { Home } from "./screens/Home";
 import { Login } from "./screens/Login";
 import { NotFound } from "./screens/NotFound";
 import { SignUp } from "./screens/SignUp";
+import { GlobalStyles } from "./styles";
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   return (
     <HelmetProvider>
+      <GlobalStyles />
       <Router>
         <Routes>
           <Route

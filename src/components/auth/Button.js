@@ -9,6 +9,7 @@ const SButton = styled.button`
   text-align: center;
   padding: 8px 0px;
   font-weight: 600;
+  cursor: pointer;
   opacity: ${(props) => props.opacity};
 `;
 

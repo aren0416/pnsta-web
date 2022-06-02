@@ -6,4 +6,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   margin-bottom: 10px;
   border: 1px solid #dbdbdb;
+  &:focus {
+    border-color: rgb(38, 38, 38);
+  }
 `;

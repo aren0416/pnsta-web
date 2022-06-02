@@ -2,7 +2,7 @@ import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import { HelmetProvider } from "react-helmet-async";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { darkModeVar, isLoggedInVar, client } from "./apollo";
+import { client, darkModeVar, isLoggedInVar } from "./apollo";
 import { routes } from "./routes";
 import { Home } from "./screens/Home";
 import { Login } from "./screens/Login";
@@ -25,7 +25,10 @@ function App() {
                 path={routes.home}
                 element={isLoggedIn ? <Home /> : <Login />}
               />
-              <Route path={routes.signUp} element={<SignUp />} />
+              <Route
+                path={routes.signUp}
+                element={!isLoggedIn ? <SignUp /> : null}
+              />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </Router>

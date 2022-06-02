@@ -1,5 +1,7 @@
+import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { loginUser } from "../apollo";
 import { AuthLayout } from "../components/auth/AuthLayout";
 import { BottomBox } from "../components/auth/BottomBox";
 import { Button } from "../components/auth/Button";
@@ -15,26 +17,70 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
+const LOGIN_MUTAION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
+
 export const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    getValues,
+    setError,
   } = useForm({
     mode: "onChange",
   });
 
-  const onSubmitValid = (data) => {
-    console.log(data);
+  const onCompleted = (data) => {
+    // console.log(data);
+    const {
+      login: { ok, token, error },
+    } = data;
+
+    if (!ok) {
+      setError("result", {
+        message: error,
+      });
+    }
+    if (token) {
+      // console.log(token);
+      loginUser(token);
+    }
   };
 
-  console.log(errors);
+  const [login, { loading }] = useMutation(LOGIN_MUTAION, {
+    onCompleted,
+  });
+
+  const onSubmit = () => {
+    // console.log(getValues());
+    if (loading) {
+      return;
+    }
+    const { username, password } = getValues();
+
+    login({
+      variables: {
+        username,
+        password,
+      },
+    });
+  };
+
+  // console.log(errors);
 
   return (
     <AuthLayout>
       <PageTitle title="Login" />
       <Title>Login</Title>
-      <FormBox onSubmit={handleSubmit(onSubmitValid)}>
+      <FormBox onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("username", {
             required: "아이디는 필수에요",
@@ -60,6 +106,8 @@ export const Login = () => {
           placeholder="비밀번호"
         />
         <FormError message={errors?.password?.message} />
+
+        <FormError message={errors?.result?.message} />
 
         {/* <Button type="submit" value="로그인" /> */}
         <Button opacity={isValid ? "1" : "0.5"} text="로그인" />
